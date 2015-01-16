@@ -103,21 +103,6 @@
 		// loop on each states :
 		@each $state in $states
 		{
-			// variables :
-			$html-states-classes : _gridle_get_var_value(html-states-classes, $state);
-			$debug : _gridle_get_var_value(debug, $state);
-			$stateName : _gridle_get_var_value(name, $state);
-
-			// check if is a state :
-			@if ($html-states-classes or $debug)
-				and $stateName {
-				// html class :
-				@if $has-parent {
-					html#{_gridle_classname("#{$stateName}")} & { @content; }
-				} @else {
-					html#{_gridle_classname("#{$stateName}")} { @content; }
-				}
-			}
 
 			// get the media query :
 			$q : _gridle_get_media_query($state);
@@ -135,22 +120,6 @@
 		}
 
 	} @else {
-
-		// variables :
-		$html-states-classes : _gridle_get_var_value(html-states-classes, $states);
-		$debug : _gridle_get_var_value(debug, $states);
-		$stateName : _gridle_get_var_value(name, $states);
-
-		// check if is a state :
-		@if ($html-states-classes or $debug)
-			and $stateName {
-			// html class :
-			@if $has-parent {
-				html#{_gridle_classname("#{$stateName}")} & { @content; }
-			} @else {
-				html#{_gridle_classname("#{$stateName}")} { @content; }
-			}
-		}
 
 		// get the media query :
 		$q : _gridle_get_media_query($states);
@@ -205,7 +174,6 @@
 	$context : _gridle_get_var_value(context, $state);
 	$name-multiplicator : _gridle_get_var_value(name-multiplicator, $state);
 	$gutter-width : _gridle_get_var_value(gutter-width, $state);
-	$ie7-support : _gridle_get_var_value(ie7-support, $state);
 	$debug : _gridle_get_var_value(debug, $state);
 	$debug-show-class-names : _gridle_get_var_value(debug-show-class-names, $state);
 
@@ -215,10 +183,6 @@
 	// set value :
 	width:$width;
 	
-	// ie7 support :
-	@if $ie7-support == true {
-		*width: expression((this.parentNode.clientWidth/#{$context}*#{($columns / $name-multiplicator)} - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight'])) + 'px');
-	}
 	
 	// debug :
 	@if $debug == true and $debug-show-class-names == true {
